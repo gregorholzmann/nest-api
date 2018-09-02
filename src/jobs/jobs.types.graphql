@@ -1,0 +1,18 @@
+type Query {
+  getJobs: [Job]
+  job(id: ID!): Job
+}
+
+type Mutation {
+  createJob(title: String): Job
+}
+
+type Subscription {
+  jobCreated: Job
+}
+
+type Job {
+  id: Int
+  title: String
+  salary: Int
+}
