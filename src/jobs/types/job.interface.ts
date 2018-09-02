@@ -3,3 +3,8 @@ export interface Job {
   salary: number
   id: number
 }
+
+export interface NewJob {
+  title: string
+  salary: number
+}

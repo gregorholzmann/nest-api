@@ -3,7 +3,7 @@ import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSub } from 'graphql-subscriptions'
 import { JobsGuard } from './jobs.guard'
 import { JobsService } from './jobs.service'
-import { Job } from './types/job.interface'
+import { Job, NewJob } from './types/job.interface'
 
 const pubSub = new PubSub()
 
@@ -26,8 +26,8 @@ export class JobsResolvers {
   }
 
   @Mutation('createJob')
-  async create(@Args() args: Job): Promise<Job> {
-    const createdJob = await this.jobsService.create(args)
+  async create(@Args() newJob: NewJob): Promise<Job> {
+    const createdJob: Job = await this.jobsService.create(newJob)
     pubSub.publish('jobCreated', { jobCreated: createdJob })
     return createdJob
   }
