@@ -1,9 +1,10 @@
-import { ParseIntPipe, UseGuards } from '@nestjs/common'
+import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSub } from 'graphql-subscriptions'
 import { JobsGuard } from './jobs.guard'
 import { JobsService } from './jobs.service'
-import { Job, NewJob } from './types/job.interface'
+import { Job } from './types/job.interface'
+import { CreateJobDTO } from './dto/create-job.dto'
 
 const pubSub = new PubSub()
 
@@ -17,17 +18,9 @@ export class JobsResolvers {
     return await this.jobsService.findAll()
   }
 
-  @Query('job')
-  async findOneById(
-    @Args('id', ParseIntPipe)
-    id: number,
-  ): Promise<Job> {
-    return await this.jobsService.findOneById(id)
-  }
-
   @Mutation('createJob')
-  async create(@Args() newJob: NewJob): Promise<Job> {
-    const createdJob: Job = await this.jobsService.create(newJob)
+  async create(@Args() createJobDto: CreateJobDTO): Promise<Job> {
+    const createdJob: Job = await this.jobsService.create(createJobDto)
     pubSub.publish('jobCreated', { jobCreated: createdJob })
     return createdJob
   }

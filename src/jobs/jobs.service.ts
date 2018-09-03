@@ -1,29 +1,19 @@
-import { Injectable } from '@nestjs/common'
-import { Job, NewJob } from './types/job.interface'
+import { Injectable , Inject} from '@nestjs/common'
+import { Job } from './types/job.interface'
+import { Model } from 'mongoose'
+import { CreateJobDTO } from './dto/create-job.dto'
 
 @Injectable()
 export class JobsService {
-  private readonly jobs: Job[] = [{ id: 1, title: 'Boss', salary: 5}]
+  constructor(@Inject('JobModelToken') private readonly jobModel: Model<Job>){}
 
-  create(newJob: NewJob): Job {
-    const jobObj: Job = {
-      ...newJob,
-      id: this.getRandomInt(100)
-    }
-    this.jobs.push(jobObj)
-    return jobObj
+  async create(createJobDTO: CreateJobDTO): Promise<Job> {
+    console.log('createJobDTO', createJobDTO)
+    const createdJob = new this.jobModel(createJobDTO)
+    return await createdJob.save()
   }
 
-  findAll(): Job[] {
-    return this.jobs
+  async findAll(): Promise<Job[]> {
+    return await this.jobModel.find().exec()
   }
-
-  findOneById(id: number): Job {
-    return this.jobs.find(job => job.id === id)
-  }
-
-  private  getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
 }

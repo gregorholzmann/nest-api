@@ -7,7 +7,7 @@ import { JobsModule } from './jobs/jobs.module'
     JobsModule,
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
-    }),
+    })
   ],
 })
 export class AppModule {}
