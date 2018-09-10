@@ -1,0 +1,22 @@
+type User {
+  name: String
+  role: String
+}
+
+input NewUser {
+  name: String
+  role: String
+}
+
+type Query {
+  getUsers: [User]
+  user(id: ID!): User
+}
+
+type Mutation {
+  createUser(name: String, role: String): User
+}
+
+type Subscription {
+  userCreated: User
+}
