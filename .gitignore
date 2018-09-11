@@ -17,6 +17,7 @@ yarn-error.log
 /src/microservices/npm-debug.log
 /src/websockets/npm-debug.log
 docs
+/dist
 
 # tests
 /test
