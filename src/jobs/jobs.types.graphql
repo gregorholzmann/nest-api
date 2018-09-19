@@ -1,10 +1,10 @@
 type Query {
   getJobs: [Job]
-  job(id: ID!): Job
+  job(id: ID!): Job,
 }
 
 type Mutation {
-  createJob(title: String, salary: Int, _id: String): Job
+  createJob(title: String, salary: Int): Job
 }
 
 type Subscription {
@@ -14,11 +14,9 @@ type Subscription {
 type Job {
   title: String
   salary: Int
-  _id: String
 }
 
 input NewJob {
   title: String
   salary: Int
-  _id: String
 }
