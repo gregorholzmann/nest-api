@@ -3,6 +3,7 @@
 ## Description
 
 A simple API built with Nest.js and GraphQL
+Run along with [example UI app](https://github.com/gregorholzmann/nest-api-ui) and a local instance of [MongoDB](https://www.mongodb.com/) to interact with the API.
 
 ## Installation
 
